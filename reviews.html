@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jiacheng's Tutor Service - Reviews</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Jiacheng's Tutor Service</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="schedule.html">Schedule</a></li>
+                <li><a href="reviews.html" class="active">Reviews</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="hero-section">
+                <h1 class="hero-title">Student Reviews</h1>
+                <p class="hero-subtitle">What Our Students Say</p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Leave a Review</h2>
+                <div class="review-form">
+                    <form id="reviewForm">
+                        <div class="form-group">
+                            <label for="reviewName">Your Name *</label>
+                            <input type="text" id="reviewName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewRating">Rating *</label>
+                            <select id="reviewRating" required>
+                                <option value="">Select a rating</option>
+                                <option value="5">⭐⭐⭐⭐⭐ (5 stars)</option>
+                                <option value="4">⭐⭐⭐⭐ (4 stars)</option>
+                                <option value="3">⭐⭐⭐ (3 stars)</option>
+                                <option value="2">⭐⭐ (2 stars)</option>
+                                <option value="1">⭐ (1 star)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewText">Your Review *</label>
+                            <textarea id="reviewText" required placeholder="Share your experience with Jiacheng's Tutor Service..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Submit Review</button>
+                    </form>
+                </div>
+
+                <div class="reviews-display">
+                    <h2 class="section-title">Recent Reviews</h2>
+                    <div id="reviewsList">
+                      
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Review form submission
+        const reviewForm = document.getElementById('reviewForm');
+        const reviewsList = document.getElementById('reviewsList');
+
+        reviewForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('reviewName').value;
+            const rating = document.getElementById('reviewRating').value;
+            const text = document.getElementById('reviewText').value;
+
+            // Create star rating display
+            const stars = '⭐'.repeat(parseInt(rating));
+
+            // Create review card
+            const reviewCard = document.createElement('div');
+            reviewCard.className = 'review-card';
+            reviewCard.innerHTML = `
+                <div class="review-header">
+                    <div class="review-name">${name}</div>
+                    <div class="review-rating">${stars}</div>
+                </div>
+                <p class="review-text">${text}</p>
+                <p class="review-date">${new Date().toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                })}</p>
+            `;
+
+            // Add to top of reviews list
+            reviewsList.insertBefore(reviewCard, reviewsList.firstChild);
+
+            // Reset form
+            reviewForm.reset();
+
+            // Show success message
+            alert('Thank you for your review! It has been submitted successfully.');
+        });
+    </script>
+</body>
+</html>
